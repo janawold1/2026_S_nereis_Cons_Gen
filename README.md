@@ -1,0 +1,2 @@
+# Kākāpō genome assemblies for genome graphs
+Here we utilised two common genome assembly tools Flye vX.X and MaSuRCA vX.X to build *de novo* and reference guided assemblies for six highly represented kākāpō founders. The motivation of this work is to assess the utility of genome graphs for SV discovery and genotyping at the population-scale, with a focus on genes associated with immunity (TLRs on chromosome 7). 
