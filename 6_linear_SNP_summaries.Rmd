@@ -1,0 +1,177 @@
+---
+title: 'Summary of Kākāpō cell line diversity'
+author: "Jana R. Wold"
+date: "1 June 2023"
+output:
+  html_document:
+    self_contained: false
+---
+
+For this initial analysis, ONT reads were aligned to the linear kākāpō reference genome with the Kākāpō125+ SNP call set as reference. We explore population structure and identify the proportion genomic diversity represented by the two cell lines.  
+
+```{r setup, include=FALSE}
+library(tidyverse)
+library(ggplot2)
+library(adegenet)
+library(hierfstat)
+library(vcfR)
+
+#install.packages("devtools")
+#devtools::install_github("G-Thomson/Manu")
+library(Manu)
+
+pal <- get_pal("Kakapo")
+get_pal("Kakapo")
+print_pal(pal)
+
+knitr::opts_chunk$set(dev = c("svg", "png"),
+                      dpi = 300,
+                      echo = FALSE,
+                      cache = TRUE)
+
+setwd("G:/My Drive/Data/Kakapo/Smart_Ideas/SNP_recovery")
+```
+
+PCAs using SNPs were constructed as per:
+```{r SV based PCA, echo=FALSE}
+Anahera_q20 <- read.vcfR("Anahera_read_q20_merge.vcf.gz")
+Anahera_chop <- read.vcfR("Anahera_chopped_chr1.vcf.gz")
+
+Anahera_q20_gind <- vcfR2genind(Anahera_q20)
+Anahera_chop_gind <- vcfR2genind(Anahera_chop)
+
+pop(Anahera_q20_gind) <- as.factor(c("RH", "SI", "SI", "SI", "SI", "SI", "SI", "SI", "SI", "SI", "SI", "SI", "SI", "SI", "SI", "SI", "SI", "SI", "SI", "SI", "SI", "SI", "SI", "SI", "SI", "SI", "SI", "SI", "SI", "SI", "SI", "SI", "SI", "SI", "SI", "SI", "SI", "SI", "SI", "RH", "SI", "RH", "SI", "SI", "SI", "SI", "SI", "SI", "RH", "SI", "SI", "SI", "SI", "SI", "SI", "SI", "SI", "SI", "SI", "SI", "SI", "SI", "SI", "SI", "SI", "SI", "SI", "SI", "SI", "SI", "SI", "SI", "SI", "SI", "SI", "SI", "RH", "SI", "SI", "SI", "SI", "SI", "SI", "SI", "SI", "SI", "SI", "SI", "SI", "SI", "RH", "SI", "SI", "SI", "SI", "SI", "SI", "SI", "SI", "SI", "SI", "SI", "SI", "SI", "SI", "SI", "SI", "SI", "SI", "SI", "SI", "SI", "SI", "SI", "SI", "SI", "SI", "SI", "RH", "SI", "SI", "SI", "SI", "SI", "SI", "SI", "SI", "SI", "SI", "RH", "SI", "SI", "SI", "SI", "SI", "SI", "SI", "SI", "SI", "SI", "SI", "SI", "SI", "SI", "SI", "SI", "SI", "SI", "SI", "SI", "SI", "SI", "SI", "SI", "SI", "SI", "SI", "SI", "SI", "SI", "SI", "SI", "SI", "SI", "SI", "SI", "SI", "SI", "SI", "Cell_line"))
+pop(Anahera_chop_gind) <- Anahera_q20_gind$pop
+
+x.q20 <- tab(Anahera_q20_gind, freq=T, NA.method="mean")
+pca.q20 <- dudi.pca(x.q20, center=TRUE, scale=FALSE, nf = 20)
+s.class(pca.q20$li, fac=pop(Anahera_q20_gind), col=funky(15))
+
+x.chop <- tab(Anahera_chop_gind, freq=T, NA.method="mean")
+pca.chop <- dudi.pca(x.chop, center=TRUE, scale=FALSE, nf = 20)
+s.class(pca.chop$li, fac=pop(Anahera_chop_gind), col=funky(15))
+
+pdf("plots/Anahera_read_q20_noMiss.pdf")
+s.class(pca.q20$li, fac=pop(Anahera_q20_gind), 
+        xax=1, yax=2, col=transp(funky(15),.6),
+        axesel=FALSE, cstar=0, cpoint=3)
+add.scatter.eig(pca.q20$eig[1:50], posi = "topright", sub = "Cell line population structure",3,2,3, ratio=.2)
+dev.off()
+
+pdf("plots/Anahera_chopped_reads.pdf")
+s.class(pca.chop$li, fac=pop(Anahera_chop_gind), 
+        xax=1, yax=2, col=transp(funky(15),.6),
+        axesel=FALSE, cstar=0, cpoint=3)
+add.scatter.eig(pca.chop$eig[1:50], posi = "topright", sub = "Cell line population structure",3,2,3, ratio=.2)
+dev.off()
+```
+
+Followed by SV-based PCAs, as per:
+```{r SV based PCA - Manta Batch, echo=FALSE}
+mantaB_mendel_vcf <- read.vcfR("inputs/pca/mantaB_mendel_target_samples.vcf")
+mantaB_vcf <- read.vcfR("inputs/pca/mantaB_target_samples.vcf")
+mantaB_mendel_gind <- vcfR2genind(mantaB_mendel_vcf)
+mantaB_gind <- vcfR2genind(mantaB_vcf)
+pop(mantaB_mendel_gind) <- delly_gind$pop
+pop(mantaB_gind) <- delly_gind$pop
+
+x.mendel.mantaB <- tab(mantaB_mendel_gind, freq=TRUE, NA.method="mean")
+x.mantaB <- tab(mantaB_gind, freq=TRUE, NA.method="mean")
+
+pca.mendel.mantaB <- dudi.pca(x.mendel.mantaB, center=T, scale = F)
+pca.mantaB <- dudi.pca(x.mantaB, center=TRUE, scale=FALSE)
+
+s.class(pca.mendel.mantaB$li, fac=pop(mantaB_mendel_gind), col=funky(15))
+#pdf("plots/mantaB_mendel.pdf")
+s.class(pca.mendel.mantaB$li, fac=pop(mantaB_mendel_gind), 
+        xax=1, yax=2, col=transp(funky(15),.6),
+        axesel=FALSE, cstar=0, cpoint=3)
+add.scatter.eig(pca.mendel.mantaB$eig[1:50], posi = "topright", sub="MantaB Mendel",3,2,3, ratio=.2)
+#dev.off()
+
+s.class(pca.mantaB$li, fac=pop(mantaB_gind), col=funky(15))
+#pdf("plots/mantaB_total.pdf")
+s.class(pca.mantaB$li, fac=pop(mantaB_gind), 
+        xax=2, yax=3, col=transp(funky(15),.6),
+        axesel=FALSE, cstar=0, cpoint=3)
+add.scatter.eig(pca.mantaB$eig[1:50], posi = "topright", sub="MantaB total",3,2,3, ratio=.2)
+#dev.off()
+```
+
+
+Followed by the results for Manta - Joint data:
+```{r SV based PCA - Manta Batch, echo=FALSE}
+mantaJ_mendel_vcf <- read.vcfR("inputs/pca/mantaJ_mendel_target_samples.vcf")
+mantaJ_vcf <- read.vcfR("inputs/pca/mantaJ_target_samples.vcf")
+mantaJ_mendel_gind <- vcfR2genind(mantaJ_mendel_vcf)
+mantaJ_gind <- vcfR2genind(mantaJ_vcf)
+pop(mantaJ_mendel_gind) <- delly_gind$pop
+pop(mantaJ_gind) <- delly_gind$pop
+
+x.mendel.mantaJ <- tab(mantaJ_mendel_gind, freq=TRUE, NA.method="mean")
+x.mantaJ <- tab(mantaJ_gind, freq=TRUE, NA.method="mean")
+
+pca.mendel.mantaJ <- dudi.pca(x.mendel.mantaJ, center=TRUE, scale = FALSE)
+pca.mantaJ <- dudi.pca(x.mantaJ, center=TRUE, scale=FALSE)
+
+s.class(pca.mendel.mantaJ$li, fac=pop(mantaJ_mendel_gind), col=funky(15))
+#pdf("plots/mantaJ_mendel.pdf")
+s.class(pca.mendel.mantaJ$li, fac=pop(mantaJ_mendel_gind), 
+        xax=1, yax=3, col=transp(funky(15),.6),
+        axesel=FALSE, cstar=0, cpoint=3)
+add.scatter.eig(pca.mendel.mantaJ$eig[1:50], posi = "topright", sub="MantaJ Mendel",3,2,3, ratio=.2)
+#dev.off()
+
+s.class(pca.mantaJ$li, fac=pop(mantaJ_gind), col=funky(15))
+#pdf("plots/mantaJ_total.pdf")
+s.class(pca.mantaJ$li, fac=pop(mantaJ_gind), 
+        xax=2, yax=3, col=transp(funky(15),.6),
+        axesel=FALSE, cstar=0, cpoint=3)
+add.scatter.eig(pca.mantaJ$eig[1:50], posi = "topright", sub="MantaJ total",3,2,3, ratio=.2)
+#dev.off()
+```
+
+And finally the results for Smoove:
+```{r SV based PCA - Manta Batch, echo=FALSE}
+smoove_mendel_vcf <- read.vcfR("inputs/pca/smoove_mendel_target_samples.vcf")
+smoove_vcf <- read.vcfR("inputs/pca/smoove_target_samples.vcf")
+smoove_mendel_gind <- vcfR2genind(smoove_mendel_vcf)
+smoove_gind <- vcfR2genind(smoove_vcf)
+pop(smoove_mendel_gind) <- delly_gind$pop
+pop(smoove_gind) <- delly_gind$pop
+
+x.mendel.smoove <- tab(smoove_mendel_gind, freq=TRUE, NA.method="mean")
+x.smoove <- tab(smoove_gind, freq=TRUE, NA.method="mean")
+
+pca.mendel.smoove <- dudi.pca(x.mendel.smoove, center=TRUE, scale = FALSE)
+pca.smoove <- dudi.pca(x.smoove, center=TRUE, scale=FALSE)
+
+s.class(pca.mendel.smoove$li, fac=pop(smoove_mendel_gind), col=funky(15))
+#pdf("plots/smoove_mendel.pdf")
+s.class(pca.mendel.smoove$li, fac=pop(smoove_mendel_gind), 
+        xax=1, yax=2, col=transp(funky(15),.6),
+        axesel=FALSE, cstar=0, cpoint=3)
+add.scatter.eig(pca.mendel.smoove$eig[1:50], posi = "topright", sub="Smoove Mendel",3,2,3, ratio=.2)
+#dev.off()
+
+s.class(pca.smoove$li, fac=pop(smoove_gind), col=funky(15))
+#pdf("plots/smoove_PDPC2.pdf")
+s.class(pca.smoove$li, fac=pop(smoove_gind), 
+        xax=1, yax=4, col=transp(funky(15),.6),
+        axesel=FALSE, cstar=0, cpoint=3)
+add.scatter.eig(pca.mantaJ$eig[1:50], posi = "topright", sub="Smoove total",3,2,3, ratio=.2)
+#dev.off()
+```
+
+Finally estimating the percent variance of PCA coordinates
+```{r PCA variance, echo=FALSE}
+perc.delly <- 100*pca.delly$eig/sum(pca.delly$eig)
+perc.mantaB <- 100*pca.mantaB$eig/sum(pca.mantaB$eig)
+perc.mantaJ <- 100*pca.mantaJ$eig/sum(pca.mantaJ$eig)
+perc.smoove <- 100*pca.smoove$eig/sum(pca.smoove$eig)
+
+perc.delly
+perc.mantaB
+perc.mantaJ
+perc.smoove
+```
