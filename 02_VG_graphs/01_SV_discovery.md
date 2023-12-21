@@ -143,7 +143,7 @@ vg giraffe \
 First we constructed and indexed the graph.  
 ```
 vg construct \
-	-S -r ${dir}graphs/Jane_by_chromosome/Jane_chromosome_7.fa \
+	-S -I sniffles_insertions.fa -r ${dir}graphs/Jane_by_chromosome/Jane_chromosome_7.fa \
 	-v ${dir}variants/SVs/sniffles/sniffles_chr7_PRECISE_minSUPP5.vcf.gz > ${dir}graphs/sniffles_total.vg
 
 vg index -t 16 -x ${dir}graphs/sniffles_chr7.xg \
@@ -215,6 +215,11 @@ awk '{ if ($4 < 0) print $1 }' ${indiv}_chr7_align_comparisons.tsv | wc -l # Num
 awk '{ if ($4 == 0) print $1 }' ${indiv}_chr7_align_comparisons.tsv | wc -l #Number of reads that had same alignment quality
 awk '{ if ($4 > 0) print $1 }' ${indiv}_chr7_align_comparisons.tsv | wc -l #Number of reads that aligned better in the graph
 ```
+
+Then looked at distribution of mapping quality scores with:
+```
+awk '{print $2}' DEL/vg_maps/Ariki.tsv | sort -n | awk ' {print $0 (NF<1 ? OFS "NA" : "") }' | uniq -c
+```
 ### Visualising mapping quality
 First augmented the input file
 ```
@@ -224,86 +229,4 @@ awk '{print $1"\t"$2"\t"$3"\tJane_aligned"} *_chr7_align_comparisons.tsv >> gira
 
 awk '{print $1"\t"$2"\t"$4"\tgraph_aligned"} *_chr7_align_comparisons.tsv >> giraffe_mapping_scores.tsv
 
-```
-Setting up the R environment
-```
-library(ggplot2)
-library(ggridges)
-library(ggpubr)
-library(gridExtra)
-library(dplyr)
-library(tidyverse)
-library(Manu)
-
-pal <- get_pal("Kakapo")
-get_pal("Kakapo")
-print_pal(pal)
-
-knitr::opts_chunk$set(dev = c("svg", "png"),
-                      dpi = 300,
-                      echo = FALSE,
-                      cache = TRUE)
-
-setwd("C:/Users/Jana/Desktop/kakapo/linear_graphs")
-
-LRmapQ <- read.table("vg_map/mapping_scores.tsv", sep = "\t", header = TRUE)
-SRmapQ <- read.table("giraffe_mapping_scores.tsv", sep = "\t", header = TRUE)
-```
-Plotting mapping quality
-```
-pdf("LRmapQ_violin_plot.pdf")
-ggplot(LRmapQ, aes(x = data, y = score, fill = data)) +
-    geom_violin() +
-    scale_fill_manual(values = c("Jane_aligned" = "#DCC949", "graph_aligned" = "#7D9D33")) +
-    theme_light() +
-    facet_wrap(~indiv)
-dev.off()
-
-pdf("LRmapQ_density_plot.pdf")
-ggplot(LRmapQ, aes(x = score, fill = data)) +
-    geom_density() +
-    scale_fill_manual(values = c("Jane_aligned" = "#DCC949", "graph_aligned" = "#7D9D33")) +
-    theme_light() +
-    facet_wrap(~indiv)
-dev.off()
-
-pdf("Waihopai_SRmapQ_violin_plot.pdf")
-SRmapQ %>% filter(across(indiv, ~grepl("Waihopai" , .))) %>%
-ggplot(aes(x = data, y = score, fill = data)) +
-    geom_violin() +
-    scale_fill_manual(values = c("Jane_aligned" = "#DCC949", "graph_aligned" = "#7D9D33")) +
-    theme_light() +
-    facet_wrap(~indiv)
-dev.off()
-
-pdf("SRmapQ_violin_plot.pdf")
-SRmapQ %>%
-ggplot(aes(x = data, y = score, fill = data)) +
-    geom_violin() +
-    scale_fill_manual(values = c("Jane_aligned" = "#DCC949", "graph_aligned" = "#7D9D33")) +
-    theme_light() +
-    facet_wrap(~indiv)
-dev.off()
-
-pdf("SRmapQ_density_plot.pdf")
-ggplot(SRmapQ, aes(x = score, fill = data)) +
-    geom_density() +
-    scale_fill_manual(values = c("Jane_aligned" = "#DCC949", "graph_aligned" = "#7D9D33")) +
-    theme_light() +
-    facet_wrap(~indiv)
-dev.off()
-```
-Plotting absolute number of read counts mapping 'better', 'same', or 'worse' in the graph.  
-```
-counts <- data.frame(indiv = c("Ariki", "Gertrude", "Waihopai", "JEM", "Ariki", "Gertrude", "Waihopai", "JEM","Ariki", "Gertrude", "Waihopai", "JEM"),
-        	        quality = c("better", "better", "better", "better", "same", "same", "same", "same", "worse", "worse", "worse", "worse"),
-                    counts = c(76665, 90827, 210023, 110129, 4129505, 4209521, 5589174, 7224515, 7563593, 10604047, 15556545, 7240617))
-
-pdf("read_counts.pdf")
-ggplot(counts, aes(x = quality, y = counts, fill = quality)) +
-    geom_bar(stat = "identity", position = position_dodge()) +
-    scale_fill_manual(values = c("worse" = "#CD8862", "same" = "#CED38C", "better" = "#7D9D33")) +
-    facet_wrap(~indiv) +
-    theme_light()
-dev.off()
 ```
