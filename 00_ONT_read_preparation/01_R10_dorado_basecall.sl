@@ -15,7 +15,7 @@
 ###############################################################
 
 ml purge
-ml load Dorado/0.4.0
+ml load Dorado/0.4.2
 
 # And now beginning to run the associated shell script.
 pod5_dir=/scale_wlg_nobackup/filesets/nobackup/uc03718/R10_raw_reads/
