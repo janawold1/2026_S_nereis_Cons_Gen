@@ -60,7 +60,7 @@ for indiv in Ariki Gertrude Waihopai JEM
     do
     printf "STARTED RUNNING YAK FOR $indiv AT "
     date
-    yak count -t32 -b37 -o ${dir}${indiv}.yak <(zcat ${dir}${indiv}_L00*.r1.fq.gz ${dir}${indiv}_L00*.r2.fq.gz)
+    yak count -o ${dir}${indiv}_total.yak -b 37 -t 32 <(cat ${dir}${indiv}_R1.fq) <(cat ${dir}${indiv}_R2.fq)
     printf "FINISHED RUNNING YAK AT "
     date
 done
@@ -68,9 +68,6 @@ done
 
 ## Genome Assembly
 ### Hifiasm
-XXX
-
-### Verkko
 XXX
 
 ## Assembly 
