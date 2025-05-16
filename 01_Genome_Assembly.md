@@ -8,10 +8,16 @@ We used [HiFiasm](https://github.com/chhylp123/hifiasm) vX.X to generate *de nov
 |   Ōtepoti  |        Waa     | Takitimu |
 |  Te Ariki  |     Gertrude   |   Ariki  |
 
-Yak was then run as below.  
+Reads were filtered further with fastp and Yak was then run as below.  
 ```
 READS=/path/to/parental/reads/
 OUT=/path/to/hifiasm/
+
+fastp -5 -3 -n 0 -t 5 -T 5 -q 20 \
+  -i ${READS}${INDIV}_R1_val_1.fq \
+  -I ${READS}${INDIV}_R2_val_2.fq \
+  -o ${OUT}${INDIV}_cleaned_R1.fq \
+  -O ${OUT}${INDIV}_cleaned_R2.fq
 
 printf "\nRUNNING YAK FOR $INDIV AT "
 date
@@ -36,7 +42,7 @@ hifiasm \
     --ul ${reads}${indiv}/${indiv}_50kb_q10.fastq \
     ${reads}${indiv}/${indiv}_corrected_10kb.fasta
 
-awk '/^S/{header=">"$2; for(i=4; i<=NF; i++) {header=header" "$i}; print header; printf "%s", $3 | "fold -w 80"; close("fold -w 80"); print ""}' ${out}hifiasm/${indiv}/${indiv}_trio_50kb.asm.bp.hap1.p_ctg.gfa > ${out}hifiasm/${indiv}/${indiv}_trio_50kb.asm.bp.hap1.p_ctg.gfa
+awk '/^S/{header=">"$2; for(i=4; i<=NF; i++) {header=header" "$i}; print header; printf "%s", $3 | "fold -w 80"; close("fold -w 80"); print ""}' ${out}hifiasm/${indiv}/${indiv}_trio_50kb.asm.bp.hap1.p_ctg.gfa > ${out}hifiasm/${indiv}/${indiv}_trio_50kb.asm.bp.hap1.p_ctg.fasta
 ```
 
 ## Initial Assembly QC
@@ -55,21 +61,21 @@ meryl count k=19 threads=32 memory=32 \
   output ${DIR}merqury/offspring_ONT.k19.meryl
 
 hapmers.sh \
-  ${DIR}merqury/mat.k19.meryl \
-  ${DIR}merqury/pat.k19.meryl \
-  ${DIR}merqury/offspring_ONT.k19.meryl 
+  ${DIR}merqury/mat_k19.meryl \
+  ${DIR}merqury/pat_k19.meryl \
+  ${DIR}merqury/offspring_k19.meryl 
 
 hapmers.sh \
-  ${DIR}merqury/mat.k19.meryl \
-  ${DIR}merqury/pat.k19.meryl \
-  ${DIR}merqury/offspring_ONT.k19.meryl -no-filt
+  ${DIR}merqury/mat_k19.meryl \
+  ${DIR}merqury/pat_k19.meryl \
+  ${DIR}merqury/offspring_k19.meryl -no-filt
 
 cd ${DIR}merqury/
 
 merqury.sh \
-  offspring_ONT.k19.meryl \
-  mat.k19.hapmer.meryl \
-  pat.k19.hapmer.meryl \
+  offspring_k19.meryl \
+  mat_k19.hapmer.meryl \
+  pat_k19.hapmer.meryl \
   ${DIR}hifiasm/offspring_hap1.p_ctg.fasta \
   ${DIR}hifiasm/offspring_hap2.p_ctg.fasta \
   offspring_k19_merqury
@@ -79,14 +85,14 @@ merqury.sh \
 We polished reads with [NextPolish2](https://github.com/Nextomics/NextPolish2).  
 ```
 # make meryl database of assembly
-meryl count k=15 output merylDB offspring_dual.fa
+meryl count k=15 output merylDB offspring_dual.fasta
 
 # Get repetitive kmer list
 meryl print greater-than distinct=0.9998 merylDB > repetitive_k15.txt
 
 #use winnowmap to process reads (here using simplex reads for correction; will probably also test whether using the corrected reads improves things)
 winnowmap -t 16 -W repetitive_k15.txt \
-  -ax map-ont Dual_purged_R0048_plus_organelles.fa \
+  -ax map-ont Dual_purged_R0048_plus_organelles.fasta \
   ../T2Tpolish/T2T-Polish/automated_polishing/R0048_dorado0.7_sup.q15_10kb.fastq | samtools sort -o Nextpolish2_R48test.sorted.bam
 ```
 I then installed NextPolish2 in to a docker container with Apptainer (config file here), and generated 21- and 31-mer datasets for input into NextPolish2
@@ -95,8 +101,6 @@ yak count -o k21.yak -k 21 -b 37 <(zcat sr.R*.fastq.gz) <(zcat sr.R*.fastq.gz)
 
 yak count -o k31.yak -k 31 -b 37 <(zcat sr.R*.fastq.gz) <(zcat sr.R*.fastq.gz)
 
-apptainer exec np2.sif /NextPolish2/target/release/nextPolish2 \
-  -r -t 4 Nextpolish2_R48test.sorted.bam \
-  Dual_purged_R0048_plus_organelles.fa k21.yak k31.yak > Dual_purged_R0048_np2.fa
+nextPolish2 -r -t 4 Nextpolish2_R48test.sorted.bam \
+  Dual_purged_R0048_plus_organelles.fasta k19.yak k21.yak k31.yak > Dual_purged_R0048_np2.fasta
 ```
-A round of scaffolding was run with Longstitch as per. And final scaffolding with RagTag.
