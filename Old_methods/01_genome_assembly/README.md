@@ -1,3 +1,0 @@
-# Preparation of Oxford Nanopore Sequences for Genome Graphs
-
-This section outlines methods used to basecall, QC, and assemble long-read data prior to genome graph construction. A number of graph construction methods were trialled, including scaffolding as per reference with Minimap2 and Mashmap with the D-GENIES online server. Reads for each individual were mapped back to their reference assemblies, and both the scaffold for Chromosome 7 and reads mapping to this scaffold were extracted. Graphs were constructed with PGGB under various parameters and chromosome 7 reads mapped to the graphs using GraphAligner. Outputs were visualised using SequenceTubeMap.  
