@@ -54,12 +54,12 @@ augustus --sample=100 --alternatives-from-sampling=true --strand=both \
         --gff3=yes --progress=true --temperature=3 --species=chicken \
         --protein=on $KREF > ${DIR}augustus/kaki_AUGUSTUS.gff
 ```
-[BEDtools](https://bedtools.readthedocs.io/en/latest/content/tools/complement.html?highlight=complement) v2.30.0 was then used to sort, and merge these putative gene regions. An additional 1kb of sequence on either side of annotations were included to reduce linkage. Duplicate regions were then merged with `bedtools merge`.  
+[BEDtools](https://bedtools.readthedocs.io/en/latest/content/tools/complement.html?highlight=complement) v2.31.1 was then used to sort, and merge these putative gene regions. An additional 1kb of sequence on either side of annotations were included to reduce linkage. Duplicate regions were then merged with `bedtools merge`.  
 ```
 grep -v "#" reference/gene_predictions/SP01_AUGUSTUS.gff | \
-    bedtools sort -i - > angsd/augustus_autosomal_predictions.bed
+    bedtools sort -i - > angsd/TI_augustus_autosomal_predictions.bed
 
-bedtools merge -i angsd/augustus_autosomal_predictions.bed > angsd/augustus_autosomal_predictions_merged.bed
+bedtools merge -i angsd/TI_augustus_autosomal_predictions.bed > angsd/TI_augustus_autosomal_predictions_merged.bed
 
 grep -v "#" kaki_genome/kaki_AUGUSTUS.gff | \
     grep -v scaffold_4 | \
@@ -72,7 +72,7 @@ awk '{print $1"\t"$2-1000"\t"$3+1000}' angsd/kaki_augustus_predictions_merged.be
 ```
 To define putatively neutral sites for analyses, we extracted the complement regions as below.  
 ```
-awk -v OFS='\t' {'print $1,$2'} ${TREF}$.fai > reference/SP01_autosome_lengths.txt
+awk -v OFS='\t' '{print $1,$2}' ${TREF}$.fai > reference/SP01_autosome_lengths.txt
 
 bedtools complement \
     -i angsd/augustus_autosomal_predictions_merged_add1kb.bed \
@@ -223,7 +223,7 @@ printf "Sample\tHeterozygosity\tTool\tPopulation\n" > ${ANGSD}individual_het.tsv
 
 for SAMP in ${ANGSD}${TOOL}/heterozygosity/*_est.ml
     do
-    BASE=$(basename $SAMP _fold_est.ml)
+    BASE=$(basename $SAMP _est.ml)
     TOT=$(awk '{print $1 + $2 + $3}' $SAMP)
     HET=$(awk -v var=$TOT '{print $2/var}' $SAMP)
     if [[ "$BASE" == "AU"* ]]
