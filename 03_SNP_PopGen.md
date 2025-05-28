@@ -505,27 +505,15 @@ We then filtered the `BED` file to excluded unplaced scaffolds and sex chromosom
 ### Sites Polarised with ANGSD
 To estimate masked and realised load in each fairy tern population and kakī we used ANGSD to output the major minor alleles, the called genotype, the posterior probability of the called genotype and all possible genotypes (`-doGeno 31`) to a BCF file (`-doBcf 1`). 
 ```
-for POP in AU TI
-    do
-    if [[ "$POP" == "AU" ]]
-        then
-        angsd -P 24 -b ${ANGSD}${POP}.list -ref $TREF -anc $TANC -out ${ANGSD}samtools/genotypes/${POP}_whole-genome_polarized \
-            -uniqueOnly 1 -remove_bads 1 -only_proper_pairs 1 -trim 0 -C 50 -baq 1 \
-            -minMapQ 20 -minQ 20 -minInd 19 -setMinDepth 200 -setMaxDepth 420 -doCounts 1 \
-            -doPost 1 -postCutoff 0.95 -doBcf 1 -GL 1 -doMajorMinor 5 -doMaf 1 -skipTriallelic 1 -SNP_pval 1e-6 -doGeno 31 --ignore-RG 0
-        elif [[ "$POP" == "TI" ]]
-        then
-        angsd -P 24 -b ${ANGSD}${POP}.list -ref $TREF -anc $TANC -out ${ANGSD}samtools/genotypes/${POP}_whole-genome_polarized \
-            -uniqueOnly 1 -remove_bads 1 -only_proper_pairs 1 -trim 0 -C 50 -baq 1 \
-            -minMapQ 20 -minQ 20 -minInd 15 -setMinDepth 120 -setMaxDepth 280 -doCounts 1 \
-            -doPost 1 -postCutoff 0.95 -doBcf 1 -GL 1 -doMajorMinor 5 -doMaf 1 -skipTriallelic 1 -SNP_pval 1e-6 -doGeno 31 --ignore-RG 0
-        else
-        angsd -P 24 -b ${ANGSD}${POP}.list -ref $KREF -anc $KANC -out ${ANGSD}samtools/genotypes/${POP}_whole-genome_polarized \
-            -uniqueOnly 1 -remove_bads 1 -only_proper_pairs 1 -trim 0 -C 50 -baq 1 \
-            -minMapQ 20 -minQ 20 -minInd 24 -setMinDepth 700 -setMaxDepth 1200 -doCounts 1 \
-            -doPost 1 -postCutoff 0.95 -doBcf 1 -GL 1 -doMajorMinor 5 -doMaf 1 -skipTriallelic 1 -SNP_pval 1e-6 -doGeno 31 --ignore-RG 0
-    fi
-done
+angsd -P 24 -b ${ANGSD}${POP}.list -ref $TREF -anc $TANC -out ${ANGSD}samtools/genotypes/${POP}_whole-genome_polarized \
+        -uniqueOnly 1 -remove_bads 1 -only_proper_pairs 1 -trim 0 -C 50 -baq 1 -skipTriallelic 1 \
+        -minMapQ 20 -minQ 20 -minInd 19 -setMinDepth 200 -setMaxDepth 420 -doCounts 1 \
+        -doPost 1 -postCutoff 0.95 -doBcf 1 -GL 1 -doMajorMinor 5 -doMaf 1 -SNP_pval 1e-6 -doGeno 31 --ignore-RG 0
+
+angsd -P 32 -b ${DIR}${POP}.list -ref $TREF -anc ${TANC} -out ${DIR}${TOOL}/genotypes/${POP}_polarized \
+        -uniqueOnly 1 -remove_bads 1 -only_proper_pairs 1 -trim 0 -C 50 -baq 1 -skipTriallelic 1 \
+        -minMapQ 20 -minQ 20 -minInd 54 -setMinDepth 324 -maxDepth 1782 -doCounts 1 \
+        -doPost 1 -postCutoff 0.95 -doBcf 1 -GL 1 -doMajorMinor 5 -doMaf 1 -SNP_pval 1e-6 -doGeno 31 --ignore-RG 0
 ```
 
 ### SIFT
