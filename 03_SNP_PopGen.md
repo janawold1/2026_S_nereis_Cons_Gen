@@ -34,8 +34,8 @@ Courtesy of scripts provided by [@mfumagalli](https://github.com/mfumagalli/ngsT
 |        Population        |Minimum MapQ|Minimum Q|Minimum Depth|Maximum Depth|Number of Individuals|
 | ------------------------ | ---------- | ------- | ----------- | ----------- | ------------------- |
 |Australian Fairy Tern (WA)|     20     |    20   |     200     |     350     |         19          |
-|         Tara iti         |     20     |    20   |     120     |     280     |         15          |
-|     Global fairy tern    |     20     |    20   |     272     |     630     |         34          |
+|         Tara iti         |     20     |    20   |     324     |    1,782    |         54          |
+|     Global fairy tern    |     20     |    20   |     438     |    2,960    |         73          |
 |         Kakī 10x         |     20     |    20   |     192     |     300     |         24          |
 |         Kakī 50x         |     20     |    20   |     700     |    1,200    |         24          |
 
@@ -155,9 +155,9 @@ done
 ```
 We then prepared summary plots for ROHs, one file each for tara iti and Australian fairy tern containing all ROH sizes calculated using the mid. estimates of heterozygosity.  
 ```
-for FILE in fairy_tern/rohmu_5e5/AU*_subset.mid.hmmrohl.gz
+for FILE in fairy_tern/rohmu_5e5/AU*.mid.hmmrohl.gz
     do
-    BASE=$(basename $FILE _subset.mid.hmmrohl.gz)
+    BASE=$(basename $FILE .mid.hmmrohl.gz)
     zcat $FILE | tail -n+2 | cut -f 2-5 | awk -v SAMP="$BASE" '{ if ( $4 <= 200000 ) len="Short ROH";
         else if ( $4 > 200000 && $4 <= 700000 ) len ="Medium ROH";
         else len ="Long ROH";
@@ -284,7 +284,7 @@ angsd -P 32 -b ${ANGSD}${POP}.list -ref ${REF} -out ${ANGSD}samtools/relatedness
 
 zcat ${ANGSD}samtools/relatedness/${POP}.mafs.gz | cut -f6 | sed 1d > ${ANGSD}samtools/relatedness/${POP}_whole-genome_freq
 
-ngsrelate -g ${ANGSD}samtools/relatedness/${POP}.glf.gz \
+ngsRelate -g ${ANGSD}samtools/relatedness/${POP}.glf.gz \
     -n 15 -f ${ANGSD}samtools/relatedness/${POP}_whole-genome_freq \
     -O ${ANGSD}samtools/relatedness/${POP}_whole-genome_relatedness
 ```
@@ -296,7 +296,7 @@ To construct a MDS for fairy tern populations, we first ran ANGSD as below. Nota
 angsd -P 26 -b GLOBAL.list -ref $REF -anc $ANC -out ${ANGSD}structure_MDS/GLOBAL \
     -uniqueOnly 1 -remove_bads 1 -only_proper_pairs 1 -trim 0 -C 50 -baq 1 \
     -minMapQ 20 -minQ 20 -minInd 34 -setMinDepth 272 -setMaxDepth 630 -doCounts 1 \
-    -GL 1 -doMajorMinor 1 -doMaf 1 -skipTriallelic 1 -SNP_pval 1e-3 -doGeno 8 -doPost 1
+    -GL 1 -doMajorMinor 1 -doMaf 1 -skipTriallelic 1 -SNP_pval 1e-6 -doGeno 8 -doPost 1
 ```
 This command not only generates the required `*.mafs.gz`, but also the `*.geno.gz`, which contains posterior probabilities of all possible genotypes required for estimating genetic distance with [ngsDistv1.0.10](https://github.com/mfumagalli/ngsTools). In addition, a `pops.label` file denoting the population of origin (one entry on a new line for each samples) is necessary for estimating genetic distance.  
 ```
