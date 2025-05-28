@@ -88,6 +88,8 @@ angsd sites index TI_scaffolded_neutral_regions.bed
 ### Runs of Homozygosity 
 [ROHAN](https://github.com/grenaud/rohan)was used to call runs of homozygosity (ROHs). Following the recommendations, we removed all PCR-duplicates from BAM alignment files, estimated a transition/transversion ratio with [VCFtools](https://vcftools.github.io/index.html) v0.1.15, and defined an allowable level of heterozygosity within a 50kb window.  
 
+*Update with how I estimate base-pair frequency and use that instead of TSTV ratio to estimate ROH.*
+
 Starting with SAMtools, we removed PCR duplicates from our markdup files.  
 ```
 samtools markdup -@16 -r --write-index *_markdup_autosomes.bam *_rohan.bam
