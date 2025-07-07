@@ -34,8 +34,8 @@ Courtesy of scripts provided by [@mfumagalli](https://github.com/mfumagalli/ngsT
 |        Population        |Minimum MapQ|Minimum Q|Minimum Depth|Maximum Depth|Number of Individuals|
 | ------------------------ | ---------- | ------- | ----------- | ----------- | ------------------- |
 |Australian Fairy Tern (WA)|     20     |    20   |     200     |     350     |         19          |
-|         Tara iti         |     20     |    20   |     324     |    1,782    |         54          |
-|     Global fairy tern    |     20     |    20   |     438     |    2,960    |         73          |
+|         Tara iti         |     20     |    20   |     234     |     770     |         39          |
+|     Global fairy tern    |     20     |    20   |     438     |    1,120    |         58          |
 |         Kakī 10x         |     20     |    20   |     192     |     300     |         24          |
 |         Kakī 50x         |     20     |    20   |     700     |    1,200    |         24          |
 
