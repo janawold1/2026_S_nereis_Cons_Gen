@@ -34,9 +34,8 @@ Courtesy of scripts provided by [@mfumagalli](https://github.com/mfumagalli/ngsT
 |        Population        |Minimum MapQ|Minimum Q|Minimum Depth|Maximum Depth|Number of Individuals|
 | ------------------------ | ---------- | ------- | ----------- | ----------- | ------------------- |
 |Australian Fairy Tern (WA)|     20     |    20   |     200     |     350     |         19          |
-|         Tara iti         |     20     |    20   |     234     |     770     |         39          |
-|     Global fairy tern    |     20     |    20   |     438     |    2,960    |         73          |
-|         Kakī 10x         |     20     |    20   |     192     |     300     |         24          |
+|         Tara iti         |     20     |    20   |     234     |     750     |         38          |
+|     Global fairy tern    |     20     |    20   |     430     |    1,101    |         57          |
 |         Kakī 50x         |     20     |    20   |     700     |    1,200    |         24          |
 
  Below is code run for analyses performed on alignments of fairy terns to the tara iti reference scaffolded using the common tern assembly (see [00_genome_assembly.md](https://github.com/janawold1/2024_MolEcol_ConsGen_Special_Issue/blob/main/00_genome_assembly.md)) and alignments of kakī to the high-quality reference assembly for this species (see [here](https://www.genomics-aotearoa.org.nz/our-work/completed-projects/high-quality-genomes) for details). All analyses for each group were performed in a similar manner for downstream comparisons. Quality thresholds were adjusted as per the table above.  
