@@ -89,53 +89,32 @@ for BAM in ${DIR}*_merged.bam
     samtools sort -@64 -o ${DIR}bam/${BASE}.fixmate.sorted.bam ${DIR}${BASE}.fixmate.bam
     printf "MARKING AND REMOVING PCR DUPLICATES FOR ${BASE} AT "
     date
-    samtools markdup -@64 --write-index ${DIR}${BASE}.fixmate.sorted.bam ${DIR}${BASE}_markdup.bam
     samtools markdup -r -@64 --write-index ${DIR}${BASE}.fixmate.sorted.bam ${DIR}${BASE}_nodup.bam
     printf "\nFINISHED MARKING AND REMOVING DUPLICATES FOR ${BASE} AT "
     date
 done
 ```
-Once BAMs were processed, autosomal chromosomes were extracted for population analyses. Mean mapping quality and alignment depth was then estimated using SAMtols, [mosdepth](https://github.com/brentp/mosdepth), and [QualiMap](http://qualimap.conesalab.org/) v2.3.  
+Once BAMs were processed, autosomal chromosomes were extracted for population analyses. Mean mapping quality and alignment depth was then estimated using SAMtools and [mosdepth](https://github.com/brentp/mosdepth).  
 ```
 cut -f1,2 SP01_5kb_ragtag.fa.fai | grep "CM020" | grep -v CM020462.1_RagTag | grep -v CM020463.1_RagTag | awk '{print $1"\t1\t"$2} > SP01_autosomes.bed
 
-for SAMP in ${DIR}*_markdup.bam
+for SAMP in ${DIR}*_nodup.bam
     do
-    BASE=$(basename $SAMP _markdup.bam)
+    BASE=$(basename $SAMP .bam)
     printf "EXTRACTING AUTOSOMES FOR ${BASE} AT "
     date
     samtools view -@64 -L SP01_genome/SP01_autosomes.bed \
-        --write-index -o ${DIR}markdup/${BASE}_markdup_autosomes.bam ${SAMP}
-    samtools view -@64 -L SP01_genome/SP01_autosomes.bed \
-        --write-index -o ${DIR}nodup/${BASE}_nodup_autosomes.bam ${DIR}nodup/${BASE}_nodup.bam
+        --write-index -o ${DIR}nodup/${BASE}_autosomes.bam ${SAMP}
     printf "FINISHED CONVERTING AND INDEXING FILES FOR ${BASE}, NOW ESTIMATING STATS AT "
     date
-    mosdepth --threads 24 --fast-mode --by 50 ${DIR}mosdepth/${BASE}_markdup_autosomes ${SAMP}
-    mosdepth --threads 24 --fast-mode --by 50 ${DIR}mosdepth/${BASE}_nodup_autosomes ${SAMP}
-    qualimap bamqc -bam ${DIR}markdup/${BASE}_markdup_autosomes.bam -outdir ${DIR}qualimap/${BASE}_markdup_autosomes -outformat PDF:HTML --java-mem-size=3G
-    qualimap bamqc -bam ${DIR}nodup/${BASE}_nodup_autosomes.bam -outdir ${DIR}qualimap/${BASE}_nodup_autosomes -outformat PDF:HTML --java-mem-size=3G
+    samtools stats ${DIR}nodup/${BASE}_autosomes.bam > ${DIR}bam_stat/${BASE}_autosomes.stats
+    mosdepth --threads 24 --fast-mode --by 50 ${DIR}bam_stat/${BASE}_autosomes ${DIR}nodup/${BASE}_autosomes.bam
     echo "FINISHED PROCESSING ${BASE}!"
 done
 ```
-For ease of comparisons, mosdepth outputs were also plotted with:
+For ease of comparisons, outputs were also plotted with:
 ```
-python ~/anaconda3/envs/mosdepth/scripts/plot-dist.py ${data}nodup_bam_stats/*.global.dist.txt
+multiqc --title "Fairy tern align stats" -o FT-alignments ${DIR}bam_stats/*
 ```
 
-Three additional fairy tern scaffolds `CM020459.1`, `CM020460.1`, and `CM02061.1` were excluded from downstream analyses as these scaffolds consistently had read depths much higher than expected and likely represents improperly assembled representations of these chromosomes. A new bedfile, cleverly named `SP01_autosomes2.bed`, was used to remove these scaffolds prior to analyses.  
-```
-for SAMP in ${DIR}*_autosomes.bam
-    do
-    BASE=$(basename $SAMP _autosomes.bam)
-    printf "EXTRACTING AUTOSOMES FOR ${BASE} AT "
-    date
-    samtools view -@64 -L SP01_genome/SP01_autosomes2.bed \
-        --write-index -o ${DIR}markdup/${BASE}_markdup_autosomes2.bam ${SAMP}
-    samtools view -@64 -L SP01_genome/SP01_autosomes2.bed \
-        --write-index -o ${DIR}nodup/${BASE}_nodup_autosomes2.bam ${DIR}nodup/${BASE}_nodup.bam
-    echo "FINISHED PROCESSING ${BASE}!"
-done
-```
- The BAM files originally filtered for autosomomal scaffolds were subsequently overwritten with the newly filtered bam files. Thus all files denoted as `*_{markdup,nodup}_autosomes.bam` contain only 22 scaffolds for fairy terns.  
-
- A similar process was performed for kakī alignments, with some minor differences. Because the kakī genome was assembled and scaffolded without the use of a chromosomally assembled genome, we identified scaffolds > 2Mb in length that demonstrated sequence coverage consistent with larger scaffolds. This indicated that Scaffolds 1-28 likely represent relatively well assembled chromosomes. These, exlucding the Z sex chromosome (Scaffold 4) were used in all downstream analyses.  
+A similar process was performed for kakī alignments, with some minor differences. Because the kakī genome was assembled and scaffolded without the use of a chromosomally assembled genome, we identified scaffolds > 2Mb in length that demonstrated sequence coverage consistent with larger scaffolds. This indicated that Scaffolds 1-28 likely represent relatively well assembled chromosomes. These, exlucding the Z sex chromosome (Scaffold 4) were used in all downstream analyses.  
