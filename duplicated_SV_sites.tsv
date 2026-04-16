@@ -1,0 +1,113 @@
+	Chromosome	Start	End	Sample	SV Type	Mutation Class	Consequence	Population	Allele Count	Genotype Category	SV Length
+170829	CM020452.1_RagTag	5295673	5295972	SND04	duplication	downstream_gene_variant	MODIFIER	NZ	0	Hom Ref	299
+170830	CM020452.1_RagTag	5295673	5295972	SND06	duplication	downstream_gene_variant	MODIFIER	NZ	0	Hom Ref	299
+170831	CM020452.1_RagTag	5295673	5295972	SND11	duplication	downstream_gene_variant	MODIFIER	NZ	1	Het	299
+170832	CM020452.1_RagTag	5295673	5295972	SP02	duplication	downstream_gene_variant	MODIFIER	NZ	1	Het	299
+170833	CM020452.1_RagTag	5295673	5295972	SP03	duplication	downstream_gene_variant	MODIFIER	NZ	0	Hom Ref	299
+170834	CM020452.1_RagTag	5295673	5295972	TI101	duplication	downstream_gene_variant	MODIFIER	NZ	0	Hom Ref	299
+170835	CM020452.1_RagTag	5295673	5295972	TI21	duplication	downstream_gene_variant	MODIFIER	NZ	0	Hom Ref	299
+170836	CM020452.1_RagTag	5295673	5295972	TI35	duplication	downstream_gene_variant	MODIFIER	NZ	0	Hom Ref	299
+170837	CM020452.1_RagTag	5295673	5295972	TI36	duplication	downstream_gene_variant	MODIFIER	NZ	2	Hom Alt	299
+170838	CM020452.1_RagTag	5295673	5295972	TI37	duplication	downstream_gene_variant	MODIFIER	NZ	0	Hom Ref	299
+170839	CM020452.1_RagTag	5295673	5295972	TI38	duplication	downstream_gene_variant	MODIFIER	NZ	1	Het	299
+170840	CM020452.1_RagTag	5295673	5295972	TI40	duplication	downstream_gene_variant	MODIFIER	NZ	0	Hom Ref	299
+170841	CM020452.1_RagTag	5295673	5295972	TI41	duplication	downstream_gene_variant	MODIFIER	NZ	0	Hom Ref	299
+170842	CM020452.1_RagTag	5295673	5295972	TI50	duplication	downstream_gene_variant	MODIFIER	NZ	1	Het	299
+170843	CM020452.1_RagTag	5295673	5295972	TI51	duplication	downstream_gene_variant	MODIFIER	NZ	0	Hom Ref	299
+170844	CM020452.1_RagTag	5295673	5295972	TI54	duplication	downstream_gene_variant	MODIFIER	NZ	0	Hom Ref	299
+170845	CM020452.1_RagTag	5295673	5295972	TI56	duplication	downstream_gene_variant	MODIFIER	NZ	0	Hom Ref	299
+170846	CM020452.1_RagTag	5295673	5295972	TI57	duplication	downstream_gene_variant	MODIFIER	NZ	0	Hom Ref	299
+170847	CM020452.1_RagTag	5295673	5295972	TI63	duplication	downstream_gene_variant	MODIFIER	NZ	0	Hom Ref	299
+170848	CM020452.1_RagTag	5295673	5295972	TI67	duplication	downstream_gene_variant	MODIFIER	NZ	1	Het	299
+170849	CM020452.1_RagTag	5295673	5295972	TI68	duplication	downstream_gene_variant	MODIFIER	NZ	0	Hom Ref	299
+170850	CM020452.1_RagTag	5295673	5295972	TI69	duplication	downstream_gene_variant	MODIFIER	NZ	0	Hom Ref	299
+170851	CM020452.1_RagTag	5295673	5295972	TI71	duplication	downstream_gene_variant	MODIFIER	NZ	1	Het	299
+170852	CM020452.1_RagTag	5295673	5295972	TI72	duplication	downstream_gene_variant	MODIFIER	NZ	1	Het	299
+170853	CM020452.1_RagTag	5295673	5295972	TI75	duplication	downstream_gene_variant	MODIFIER	NZ	0	Hom Ref	299
+170854	CM020452.1_RagTag	5295673	5295972	TI77	duplication	downstream_gene_variant	MODIFIER	NZ	1	Het	299
+170855	CM020452.1_RagTag	5295673	5295972	TI78	duplication	downstream_gene_variant	MODIFIER	NZ	1	Het	299
+170856	CM020452.1_RagTag	5295673	5295972	TI81	duplication	downstream_gene_variant	MODIFIER	NZ	0	Hom Ref	299
+170857	CM020452.1_RagTag	5295673	5295972	TI84	duplication	downstream_gene_variant	MODIFIER	NZ	0	Hom Ref	299
+170858	CM020452.1_RagTag	5295673	5295972	TI85	duplication	downstream_gene_variant	MODIFIER	NZ	0	Hom Ref	299
+170859	CM020452.1_RagTag	5295673	5295972	TI91	duplication	downstream_gene_variant	MODIFIER	NZ	1	Het	299
+170860	CM020452.1_RagTag	5295673	5295972	TI92	duplication	downstream_gene_variant	MODIFIER	NZ	0	Hom Ref	299
+170861	CM020452.1_RagTag	5295673	5295972	TI93	duplication	downstream_gene_variant	MODIFIER	NZ	0	Hom Ref	299
+170862	CM020452.1_RagTag	5295673	5295972	TI95	duplication	downstream_gene_variant	MODIFIER	NZ	0	Hom Ref	299
+170863	CM020452.1_RagTag	5295673	5295972	TI96	duplication	downstream_gene_variant	MODIFIER	NZ	0	Hom Ref	299
+170864	CM020452.1_RagTag	5295673	5295972	TI97	duplication	downstream_gene_variant	MODIFIER	NZ	0	Hom Ref	299
+170865	CM020452.1_RagTag	5295673	5295972	TI99	duplication	downstream_gene_variant	MODIFIER	NZ	0	Hom Ref	299
+170866	CM020452.1_RagTag	5295673	5296087	SND04	duplication	downstream_gene_variant	MODIFIER	NZ	1	Het	414
+170867	CM020452.1_RagTag	5295673	5296087	SND06	duplication	downstream_gene_variant	MODIFIER	NZ	1	Het	414
+170868	CM020452.1_RagTag	5295673	5296087	SND11	duplication	downstream_gene_variant	MODIFIER	NZ	1	Het	414
+170869	CM020452.1_RagTag	5295673	5296087	SP02	duplication	downstream_gene_variant	MODIFIER	NZ	1	Het	414
+170870	CM020452.1_RagTag	5295673	5296087	SP03	duplication	downstream_gene_variant	MODIFIER	NZ	0	Hom Ref	414
+170871	CM020452.1_RagTag	5295673	5296087	TI101	duplication	downstream_gene_variant	MODIFIER	NZ	0	Hom Ref	414
+170872	CM020452.1_RagTag	5295673	5296087	TI21	duplication	downstream_gene_variant	MODIFIER	NZ	1	Het	414
+170873	CM020452.1_RagTag	5295673	5296087	TI35	duplication	downstream_gene_variant	MODIFIER	NZ	0	Hom Ref	414
+170874	CM020452.1_RagTag	5295673	5296087	TI36	duplication	downstream_gene_variant	MODIFIER	NZ	2	Hom Alt	414
+170875	CM020452.1_RagTag	5295673	5296087	TI37	duplication	downstream_gene_variant	MODIFIER	NZ	1	Het	414
+170876	CM020452.1_RagTag	5295673	5296087	TI38	duplication	downstream_gene_variant	MODIFIER	NZ	1	Het	414
+170877	CM020452.1_RagTag	5295673	5296087	TI40	duplication	downstream_gene_variant	MODIFIER	NZ	0	Hom Ref	414
+170878	CM020452.1_RagTag	5295673	5296087	TI41	duplication	downstream_gene_variant	MODIFIER	NZ	1	Het	414
+170879	CM020452.1_RagTag	5295673	5296087	TI50	duplication	downstream_gene_variant	MODIFIER	NZ	1	Het	414
+170880	CM020452.1_RagTag	5295673	5296087	TI51	duplication	downstream_gene_variant	MODIFIER	NZ	1	Het	414
+170881	CM020452.1_RagTag	5295673	5296087	TI54	duplication	downstream_gene_variant	MODIFIER	NZ	0	Hom Ref	414
+170882	CM020452.1_RagTag	5295673	5296087	TI56	duplication	downstream_gene_variant	MODIFIER	NZ	1	Het	414
+170883	CM020452.1_RagTag	5295673	5296087	TI57	duplication	downstream_gene_variant	MODIFIER	NZ	0	Hom Ref	414
+170884	CM020452.1_RagTag	5295673	5296087	TI63	duplication	downstream_gene_variant	MODIFIER	NZ	0	Hom Ref	414
+170885	CM020452.1_RagTag	5295673	5296087	TI67	duplication	downstream_gene_variant	MODIFIER	NZ	1	Het	414
+170886	CM020452.1_RagTag	5295673	5296087	TI68	duplication	downstream_gene_variant	MODIFIER	NZ	0	Hom Ref	414
+170887	CM020452.1_RagTag	5295673	5296087	TI69	duplication	downstream_gene_variant	MODIFIER	NZ	1	Het	414
+170888	CM020452.1_RagTag	5295673	5296087	TI71	duplication	downstream_gene_variant	MODIFIER	NZ	1	Het	414
+170889	CM020452.1_RagTag	5295673	5296087	TI72	duplication	downstream_gene_variant	MODIFIER	NZ	2	Hom Alt	414
+170890	CM020452.1_RagTag	5295673	5296087	TI75	duplication	downstream_gene_variant	MODIFIER	NZ	0	Hom Ref	414
+170891	CM020452.1_RagTag	5295673	5296087	TI77	duplication	downstream_gene_variant	MODIFIER	NZ	1	Het	414
+170892	CM020452.1_RagTag	5295673	5296087	TI78	duplication	downstream_gene_variant	MODIFIER	NZ	1	Het	414
+170893	CM020452.1_RagTag	5295673	5296087	TI81	duplication	downstream_gene_variant	MODIFIER	NZ	0	Hom Ref	414
+170894	CM020452.1_RagTag	5295673	5296087	TI84	duplication	downstream_gene_variant	MODIFIER	NZ	0	Hom Ref	414
+170895	CM020452.1_RagTag	5295673	5296087	TI85	duplication	downstream_gene_variant	MODIFIER	NZ	0	Hom Ref	414
+170896	CM020452.1_RagTag	5295673	5296087	TI91	duplication	downstream_gene_variant	MODIFIER	NZ	1	Het	414
+170897	CM020452.1_RagTag	5295673	5296087	TI92	duplication	downstream_gene_variant	MODIFIER	NZ	1	Het	414
+170898	CM020452.1_RagTag	5295673	5296087	TI93	duplication	downstream_gene_variant	MODIFIER	NZ	0	Hom Ref	414
+170899	CM020452.1_RagTag	5295673	5296087	TI95	duplication	downstream_gene_variant	MODIFIER	NZ	0	Hom Ref	414
+170900	CM020452.1_RagTag	5295673	5296087	TI96	duplication	downstream_gene_variant	MODIFIER	NZ	0	Hom Ref	414
+170901	CM020452.1_RagTag	5295673	5296087	TI97	duplication	downstream_gene_variant	MODIFIER	NZ	0	Hom Ref	414
+170902	CM020452.1_RagTag	5295673	5296087	TI99	duplication	downstream_gene_variant	MODIFIER	NZ	0	Hom Ref	414
+319616	CM020452.1_RagTag	5295673	5295972	AU01	duplication	downstream_gene_variant	MODIFIER	AU	2	Hom Alt	299
+319617	CM020452.1_RagTag	5295673	5295972	AU03	duplication	downstream_gene_variant	MODIFIER	AU	2	Hom Alt	299
+319618	CM020452.1_RagTag	5295673	5295972	AU04	duplication	downstream_gene_variant	MODIFIER	AU	1	Het	299
+319619	CM020452.1_RagTag	5295673	5295972	AU06	duplication	downstream_gene_variant	MODIFIER	AU	1	Het	299
+319620	CM020452.1_RagTag	5295673	5295972	AU08	duplication	downstream_gene_variant	MODIFIER	AU	1	Het	299
+319621	CM020452.1_RagTag	5295673	5295972	AU09	duplication	downstream_gene_variant	MODIFIER	AU	2	Hom Alt	299
+319622	CM020452.1_RagTag	5295673	5295972	AU13	duplication	downstream_gene_variant	MODIFIER	AU	1	Het	299
+319623	CM020452.1_RagTag	5295673	5295972	AU14	duplication	downstream_gene_variant	MODIFIER	AU	2	Hom Alt	299
+319624	CM020452.1_RagTag	5295673	5295972	AU17	duplication	downstream_gene_variant	MODIFIER	AU	1	Het	299
+319625	CM020452.1_RagTag	5295673	5295972	AU20	duplication	downstream_gene_variant	MODIFIER	AU	1	Het	299
+319626	CM020452.1_RagTag	5295673	5295972	AU21	duplication	downstream_gene_variant	MODIFIER	AU	2	Hom Alt	299
+319627	CM020452.1_RagTag	5295673	5295972	AU23	duplication	downstream_gene_variant	MODIFIER	AU	2	Hom Alt	299
+319628	CM020452.1_RagTag	5295673	5295972	AU24	duplication	downstream_gene_variant	MODIFIER	AU	1	Het	299
+319629	CM020452.1_RagTag	5295673	5295972	AU25	duplication	downstream_gene_variant	MODIFIER	AU	1	Het	299
+319630	CM020452.1_RagTag	5295673	5295972	AU27	duplication	downstream_gene_variant	MODIFIER	AU	1	Het	299
+319631	CM020452.1_RagTag	5295673	5295972	AU28	duplication	downstream_gene_variant	MODIFIER	AU	1	Het	299
+319632	CM020452.1_RagTag	5295673	5295972	AU29	duplication	downstream_gene_variant	MODIFIER	AU	1	Het	299
+319633	CM020452.1_RagTag	5295673	5295972	AU30	duplication	downstream_gene_variant	MODIFIER	AU	1	Het	299
+319634	CM020452.1_RagTag	5295673	5295972	AU33	duplication	downstream_gene_variant	MODIFIER	AU	2	Hom Alt	299
+319635	CM020452.1_RagTag	5295673	5296087	AU01	duplication	downstream_gene_variant	MODIFIER	AU	2	Hom Alt	414
+319636	CM020452.1_RagTag	5295673	5296087	AU03	duplication	downstream_gene_variant	MODIFIER	AU	2	Hom Alt	414
+319637	CM020452.1_RagTag	5295673	5296087	AU04	duplication	downstream_gene_variant	MODIFIER	AU	1	Het	414
+319638	CM020452.1_RagTag	5295673	5296087	AU06	duplication	downstream_gene_variant	MODIFIER	AU	1	Het	414
+319639	CM020452.1_RagTag	5295673	5296087	AU08	duplication	downstream_gene_variant	MODIFIER	AU	1	Het	414
+319640	CM020452.1_RagTag	5295673	5296087	AU09	duplication	downstream_gene_variant	MODIFIER	AU	2	Hom Alt	414
+319641	CM020452.1_RagTag	5295673	5296087	AU13	duplication	downstream_gene_variant	MODIFIER	AU	1	Het	414
+319642	CM020452.1_RagTag	5295673	5296087	AU14	duplication	downstream_gene_variant	MODIFIER	AU	2	Hom Alt	414
+319643	CM020452.1_RagTag	5295673	5296087	AU17	duplication	downstream_gene_variant	MODIFIER	AU	2	Hom Alt	414
+319644	CM020452.1_RagTag	5295673	5296087	AU20	duplication	downstream_gene_variant	MODIFIER	AU	1	Het	414
+319645	CM020452.1_RagTag	5295673	5296087	AU21	duplication	downstream_gene_variant	MODIFIER	AU	2	Hom Alt	414
+319646	CM020452.1_RagTag	5295673	5296087	AU23	duplication	downstream_gene_variant	MODIFIER	AU	2	Hom Alt	414
+319647	CM020452.1_RagTag	5295673	5296087	AU24	duplication	downstream_gene_variant	MODIFIER	AU	2	Hom Alt	414
+319648	CM020452.1_RagTag	5295673	5296087	AU25	duplication	downstream_gene_variant	MODIFIER	AU	1	Het	414
+319649	CM020452.1_RagTag	5295673	5296087	AU27	duplication	downstream_gene_variant	MODIFIER	AU	1	Het	414
+319650	CM020452.1_RagTag	5295673	5296087	AU28	duplication	downstream_gene_variant	MODIFIER	AU	1	Het	414
+319651	CM020452.1_RagTag	5295673	5296087	AU29	duplication	downstream_gene_variant	MODIFIER	AU	2	Hom Alt	414
+319652	CM020452.1_RagTag	5295673	5296087	AU30	duplication	downstream_gene_variant	MODIFIER	AU	1	Het	414
+319653	CM020452.1_RagTag	5295673	5296087	AU33	duplication	downstream_gene_variant	MODIFIER	AU	2	Hom Alt	414
